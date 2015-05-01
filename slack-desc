@@ -1,0 +1,11 @@
+tinyxml2: TinyXML2 (A simple, samll and minimal C++ XML library)
+tinyxml2:
+tinyxml2: TinyXML is a simple, small, minimal, C++ XML parser that can be
+tinyxml2: easily integrating into other programs.  It reads XML and creates
+tinyxml2: C++ objects representing the XML document.  The objects can be
+tinyxml2: manipulated, changed, and saved again as XML.
+tinyxml2:
+tinyxml2:
+tinyxml2:
+tinyxml2:
+tinyxml2: Packaged by Georgi D. Sotirov <gdsotirov@dir.bg>
