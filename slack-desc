@@ -1,4 +1,4 @@
-tinyxml2: TinyXML2 (A simple, samll and minimal C++ XML library)
+tinyxml2: TinyXML2 (A simple, small and minimal C++ XML library)
 tinyxml2:
 tinyxml2: TinyXML is a simple, small, minimal, C++ XML parser that can be
 tinyxml2: easily integrating into other programs.  It reads XML and creates
@@ -8,4 +8,4 @@ tinyxml2:
 tinyxml2:
 tinyxml2:
 tinyxml2:
-tinyxml2: Packaged by Georgi D. Sotirov <gdsotirov@dir.bg>
+tinyxml2: Packaged by Georgi D. Sotirov <gdsotirov@gmail.com>
