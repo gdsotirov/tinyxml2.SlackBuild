@@ -73,17 +73,23 @@ bin_perms $PKG
 DOCFILES="$DOCFILES readme.md"
 ( cd $SRC; create_docs $PKG ${NAME}-${VERSION} )
 ( cd $PKG/usr/doc/${NAME}-${VERSION}; mv readme.md README)
-install --mode 644 $CWD/ZLIBLIC $PKG/usr/doc/${NAME}-${VERSION}/COPYING
+install --mode 644 --preserve-timestamps \
+        $CWD/ZLIBLIC $PKG/usr/doc/${NAME}-${VERSION}/COPYING
 
 install --mode 755 --directory $PKG/install
-install --mode 644 $CWD/slack-desc          $PKG/install/slack-desc
-install --mode 644 $CWD/slack-required      $PKG/install/slack-required
+install --mode 644 --preserve-timestamps \
+        $CWD/slack-desc          $PKG/install/slack-desc
+install --mode 644 --preserve-timestamps \
+        $CWD/slack-required      $PKG/install/slack-required
 
 SBDIR=$PKG/usr/src/slackbuilds/${NAME}-${VERSION}
 install --mode 755 --directory $SBDIR
-install --mode 644 $CWD/slack-desc         $SBDIR/slack-desc
-install --mode 644 $CWD/slack-required     $SBDIR/slack-required
-install --mode 644 $CWD/${NAME}.SlackBuild $SBDIR/${NAME}.SlackBuild
+install --mode 644 --preserve-timestamps \
+        $CWD/slack-desc         $SBDIR/slack-desc
+install --mode 644 --preserve-timestamps \
+        $CWD/slack-required     $SBDIR/slack-required
+install --mode 644 --preserve-timestamps \
+        $CWD/${NAME}.SlackBuild $SBDIR/${NAME}.SlackBuild
 
 # Pack
 cd $PKG
