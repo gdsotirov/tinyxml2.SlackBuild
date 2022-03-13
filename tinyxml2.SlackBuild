@@ -23,7 +23,7 @@
 . ../../slack-package.conf
 
 NAME='tinyxml2'
-VERSION=4.0.1
+VERSION=9.0.0
 ARCH=${ARCH:-i586}
 BUILD=${BUILD:-1}
 
@@ -50,31 +50,35 @@ mkdir --parents $PKG
 # Extract the source
 cd $TMP
 tar --extract --verbose --file=$CWD/${NAME}-${VERSION}.tar.gz || exit 3
-mv ${NAME} ${NAME}-${VERSION}
 cd $SRC
 fix_source
 
-# Build & install
-cmake -LAH \
-      -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
-      -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
-      -DCMAKE_BUILD_TYPE=Release \
-      -DCMAKE_INSTALL_PREFIX:PATH=/usr \
-      -DCMAKE_INSTALL_LIBDIR:PATH=/usr/lib${LIBDIRSUFFIX} \
-      -DBUILD_STATIC_LIBS:BOOL=OFF \
-      -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE || exit 5
+# Configure
+mkdir build; cd build
+cmake .. -LAH \
+        -DBUILD_SHARED_LIBS=ON \
+        -DBUILD_TESTING=ON \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
+        -DCMAKE_C_FLAGS="$SLKCFLAGS" \
+        -DCMAKE_INSTALL_LIBDIR=/usr/lib${LIBDIRSUFFIX} \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_VERBOSE_MAKEFILE=TRUE || exit 5
 
+# Build, test & install
 make --jobs || exit 6
-make DESTDIR=$PKG install || exit 7
+make test || exit 7
+make DESTDIR=$PKG install || exit 8
+cd ..
 
 # Prepare
 bin_perms $PKG
 ( cd $PKG; strip_bin; strip_lib )
-DOCFILES="$DOCFILES readme.md"
+DOCFILES="$DOCFILES LICENSE.txt readme.md"
 ( cd $SRC; create_docs $PKG ${NAME}-${VERSION} )
-( cd $PKG/usr/doc/${NAME}-${VERSION}; mv readme.md README)
-install --mode 644 --preserve-timestamps \
-        $CWD/ZLIBLIC $PKG/usr/doc/${NAME}-${VERSION}/COPYING
+( cd $PKG/usr/doc/${NAME}-${VERSION};
+  mv readme.md README
+  mv LICENSE.txt COPYING )
 
 install --mode 755 --directory $PKG/install
 install --mode 644 --preserve-timestamps \
