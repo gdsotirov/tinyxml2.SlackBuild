@@ -69,9 +69,6 @@ cmake .. -LAH \
 make --jobs || exit 6
 make test || exit 7
 make DESTDIR=$PKG install || exit 8
-# Remove CMake module as it is problematic
-# See https://github.com/leethomason/tinyxml2/issues/904
-rm --recursive $PKG/usr/lib${LIBDIRSUFFIX}/cmake
 cd ..
 
 # Prepare
